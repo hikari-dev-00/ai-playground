@@ -19,10 +19,11 @@ function sendMessage() {
     reply = `なるほど。「${text}」について考えているんだね。まずは小さく試してみよう！`;
   }
 
-  output.textContent +=
-    "👤 " + text +
-    "\n🤖 " + reply +
-    "\n\n";
+  output.innerHTML += `
+  <div class="user-message">👤 ${text}</div>
+
+  <div class="ai-message">🤖 ${reply}</div>
+`;
 
   input.value = "";
 }
@@ -32,7 +33,7 @@ button.addEventListener("click", () => {
 });
 
 input.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
+  if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault(); // Enterで改行しない
     sendMessage();
   }

@@ -68,3 +68,24 @@ p {
   margin-top: -18px;
   margin-bottom: 32px;
 }
+
+.user-message {
+  background: #007aff;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px;
+  margin: 12px 0 6px auto;
+  max-width: 75%;
+  width: fit-content;
+}
+
+.ai-message {
+  background: white;
+  color: #1d1d1f;
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 4px;
+  margin: 6px 0 18px 0;
+  max-width: 75%;
+  width: fit-content;
+  border: 1px solid #e5e5ea;
+}
