@@ -2,7 +2,7 @@ const button = document.getElementById("button");
 const input = document.getElementById("input");
 const output = document.getElementById("output");
 
-button.addEventListener("click", () => {
+function sendMessage() {
   const text = input.value;
 
   let reply = "";
@@ -23,6 +23,17 @@ button.addEventListener("click", () => {
     "👤 " + text +
     "\n🤖 " + reply +
     "\n\n";
-    
+
   input.value = "";
+}
+
+button.addEventListener("click", () => {
+  sendMessage();
+});
+
+input.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Enterで改行しない
+    sendMessage();
+  }
 });
