@@ -19,5 +19,10 @@ button.addEventListener("click", () => {
     reply = `なるほど。「${text}」について考えているんだね。まずは小さく試してみよう！`;
   }
 
-  output.textContent = reply;
+  output.textContent +=
+    "👤 " + text +
+    "\n🤖 " + reply +
+    "\n\n";
+    
+  input.value = "";
 });
