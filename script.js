@@ -3,7 +3,13 @@ const input = document.getElementById("input");
 const output = document.getElementById("output");
 
 function sendMessage() {
-  const text = input.value;
+  // 前後の空白を削除
+  const text = input.value.trim();
+
+  // 空送信を防ぐ
+  if (text === "") {
+    return;
+  }
 
   let reply = "";
 
@@ -20,12 +26,18 @@ function sendMessage() {
   }
 
   output.innerHTML += `
-  <div class="user-message">👤 ${text}</div>
+    <div class="user-message">👤 ${text}</div>
+    <div class="ai-message">🤖 ${reply}</div>
+  `;
 
-  <div class="ai-message">🤖 ${reply}</div>
-`;
+  // 一番下までスクロール
+  output.scrollTop = output.scrollHeight;
 
+  // 入力欄を空にする
   input.value = "";
+
+  // 入力欄へカーソルを戻す
+  input.focus();
 }
 
 button.addEventListener("click", () => {
@@ -34,7 +46,7 @@ button.addEventListener("click", () => {
 
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault(); // Enterで改行しない
+    event.preventDefault(); // Enterで送信
     sendMessage();
   }
 });
