@@ -1,12 +1,29 @@
+const messages = [];
 const button = document.getElementById("button");
 const input = document.getElementById("input");
 const output = document.getElementById("output");
 
+function renderMessages() {
+  output.innerHTML = "";
+
+  messages.forEach((message) => {
+    if (message.role === "user") {
+      output.innerHTML += `
+        <div class="user-message">👤 ${message.content}</div>
+      `;
+    } else {
+      output.innerHTML += `
+        <div class="ai-message">🤖 ${message.content}</div>
+      `;
+    }
+  });
+
+  output.scrollTop = output.scrollHeight;
+}
+
 function sendMessage() {
-  // 前後の空白を削除
   const text = input.value.trim();
 
-  // 空送信を防ぐ
   if (text === "") {
     return;
   }
@@ -25,18 +42,24 @@ function sendMessage() {
     reply = `なるほど。「${text}」について考えているんだね。まずは小さく試してみよう！`;
   }
 
-  output.innerHTML += `
-    <div class="user-message">👤 ${text}</div>
-    <div class="ai-message">🤖 ${reply}</div>
-  `;
+  messages.push({
+    role: "user",
+    content: text
+  });
 
-  // 一番下までスクロール
-  output.scrollTop = output.scrollHeight;
+  messages.push({
+    role: "assistant",
+    content: "考え中..."
+  });
 
-  // 入力欄を空にする
+  renderMessages();
+
+  setTimeout(() => {
+    messages[messages.length - 1].content = reply;
+    renderMessages();
+  }, 800);
+
   input.value = "";
-
-  // 入力欄へカーソルを戻す
   input.focus();
 }
 
@@ -46,7 +69,7 @@ button.addEventListener("click", () => {
 
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault(); // Enterで送信
+    event.preventDefault();
     sendMessage();
   }
 });
